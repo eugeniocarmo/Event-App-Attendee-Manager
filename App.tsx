@@ -1,3 +1,4 @@
+import * as React from 'react-native';
 
 import { Home } from "./src/screens/Home";
 

@@ -1,7 +1,6 @@
-
 import * as React from 'react-native';
 
-import {Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import {Text, View, TextInput, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { styles } from './styles';
 import { Participant } from '../../components/Participant';
 
@@ -11,12 +10,25 @@ export function Home() {
   const participants = ['Eugenio', 'Daniela', 'Nicholas','Hannah','Eduardo', 'Deisy','Izabel', 'Louise', 'John'];
 
   function handleAddingParticipant(){
-    console.log('Participant added');
+    if (participants.includes('Eugenio')) {
+      return Alert.alert('Paticipand added', 'There is already a participant in the list with this name');
+    }
+   
   }
 
-  function handdleRemovingParticipant(name: string) {
-    console.log(`Participant ${name} was removed successfully`);
-  }
+  function handdleRemovingParticipant(name: string){
+    Alert.alert('Removing participant', `Would you like to remove ${name} from the list?`, [
+      {
+        text: 'Yes',
+        onPress: () => Alert.alert('',`${name} was removed successfully`)
+      },
+      {
+        text: 'No',
+        style: 'cancel'
+      }
+    ]);
+    
+  } 
 
   return (
 
@@ -51,7 +63,6 @@ export function Home() {
         keyExtractor={item => item}
         renderItem={({ item }) => (
           <Participant 
-              key={item}
               name={item}
               onRemove={() => handdleRemovingParticipant(item)}/>
         )}

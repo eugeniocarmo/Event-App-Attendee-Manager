@@ -1,4 +1,4 @@
-import * as React from 'react-native';
+import React, { useState } from 'react';
 
 import {Text, View, TextInput, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { styles } from './styles';
@@ -7,12 +7,16 @@ import { Participant } from '../../components/Participant';
 
 export function Home() {
 
-  const participants = ['Eugenio', 'Daniela', 'Nicholas','Hannah','Eduardo', 'Deisy','Izabel', 'Louise', 'John'];
+  const [participants, setParticipants] = useState<string[]>([]);
+  const [participantName, setParticipantName] = useState('');
 
   function handleAddingParticipant(){
-    if (participants.includes('Eugenio')) {
+    if (participants.includes(participantName)) {
       return Alert.alert('Paticipand added', 'There is already a participant in the list with this name');
     }
+    setParticipants(prevState => [...prevState, participantName]);
+    setParticipantName('');
+  
    
   }
 
@@ -44,9 +48,12 @@ export function Home() {
       <View style={styles.form} >
         <TextInput 
         style={styles.input}
-        placeholder="Enter event name"
+        placeholder="Participant name"
         placeholderTextColor="#6b6b6b" 
         keyboardType='default'
+        onChangeText={setParticipantName}
+        value={participantName}
+
         />
         <TouchableOpacity 
           style={styles.button}
@@ -73,8 +80,6 @@ export function Home() {
         )}
       />
     </View>
-    
-    
   );
 } 
 

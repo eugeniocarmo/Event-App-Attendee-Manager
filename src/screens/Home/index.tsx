@@ -17,14 +17,17 @@ export function Home() {
     setParticipants(prevState => [...prevState, participantName]);
     setParticipantName('');
   
-   
+
   }
 
-  function handdleRemovingParticipant(name: string){
+  function handdleRemovingParticipant(name: string) {
+    
+
+
     Alert.alert('Removing participant', `Would you like to remove ${name} from the list?`, [
       {
         text: 'Yes',
-        onPress: () => Alert.alert('',`${name} was removed successfully`)
+        onPress: () => setParticipants(prevState => prevState.filter(participant => participant !== name))
       },
       {
         text: 'No',
